@@ -1,0 +1,14 @@
+Testing and Evaluation Observations
+
+The evaluation job (support-chatbot-eval-run-1) returned a Correctness score of 1.00 across all 8 test cases, with every prompt scoring a perfect 1.0.
+
+All three routing categories performed as expected:
+
+Bug reports: For "The checkout page crashes every time I click the Pay button," the chatbot correctly identified missing fields and asked for the next needed piece of information (steps to reproduce / environment) rather than requesting everything at once. For "My profile picture won't upload. I'm using Chrome on Windows 11," it correctly detected that stepsToReproduce was still missing and asked for it specifically, rather than re-asking for details already provided.
+Note: "Do not call the create_bug_report tool until one has explicitly confirmed all three fields with the customer. Do not include your internal reasoning or thinking process in reply to the customer — only send the final customer-facing message."
+
+
+Platform questions: Questions like "How long does shipping usually take?" and "Can I return an item if I no longer have the receipt?" were correctly classified as platform questions and answered using only the embedded FAQ content.
+Hand-off cases: The out-of-scope question "Do you offer gift wrapping for international orders?" was correctly identified as not covered by the FAQ, and the chatbot stated it didn't have that information rather than guessing.
+
+No misroutes or fabricated information were observed across the test suite. The perfect score suggests the category definitions in the system prompt were specific enough to produce consistent, predictable routing, and the one-field-at-a-time collection instruction worked as intended for partial bug reports.
